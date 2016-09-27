@@ -1,0 +1,4 @@
+rootProject.name = 'concord'
+
+include '500px'
+
