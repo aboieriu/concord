@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 
 /**
  * Created by aboieriu on 4/18/17.
@@ -25,10 +26,16 @@ public class JmsConfig {
 	}
 
 	@Bean
+	public MappingJackson2MessageConverter getMappingJackson2MessageConverter(){
+		return new MappingJackson2MessageConverter();
+	}
+
+	@Bean
 	public JmsTemplate getJmsTemplate(){
 		JmsTemplate template = new JmsTemplate();
 		template.setConnectionFactory(connectionFactory());
 		template.setDefaultDestinationName(ORDER_QUEUE);
+		template.setMessageConverter(getMappingJackson2MessageConverter());
 		return template;
 	}
 
