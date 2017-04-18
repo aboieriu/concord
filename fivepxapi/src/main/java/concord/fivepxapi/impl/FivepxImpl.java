@@ -2,6 +2,7 @@ package concord.fivepxapi.impl;
 
 import com.google.common.base.Preconditions;
 import concord.fivepxapi.api.IFivepx;
+import concord.fivepxapi.api.response.PhotoResponse;
 import concord.fivepxapi.api.response.UserResponse;
 import concord.fivepxapi.client.FivepxHttpClient;
 import concord.fivepxapi.constant.FivePxApiConstants;
@@ -44,21 +45,51 @@ public class FivepxImpl implements IFivepx {
 		return parser.parseResponse(responseOptional, UserResponse.class);
 	}
 
+	@Override
+	public Optional<PhotoResponse> getPhotos(String category, String feature, int page) {
+
+		HttpGet httpGet = new HttpGet(getPhotosUrl(category, feature, page));
+
+		Optional<HttpResponse> responseOptional = client.executeRequest(httpGet);
+
+		return parser.parseResponse(responseOptional, PhotoResponse.class);
+	}
+
 	private String getBaseUrl(){
 		return FivePxApiConstants.baseApiUrl;
 	}
 
 	private String getUserUrl(Serializable userId){
-		String baseParams = getParametersAsQueryString(getBaseParameters());
-
 		String userEndpoint = MessageFormat.format(getBaseUrl() + FivePxApiConstants.userEndpoint, userId);
-		return userEndpoint + FivePxApiConstants.QUERY_URL_SEPARATOR + baseParams;
+		return buildFinalUrl(userEndpoint, getBaseParameters());
+	}
+
+	private String getPhotosUrl(String category, String feature, int page) {
+		Map<String, String> parameters = getBaseParameters();
+		if (category != null) {
+			parameters.put(FivePxApiConstants.PHOTO_CATEGORY, category);
+		}
+		if (feature != null) {
+			parameters.put(FivePxApiConstants.PHOTO_FEATURE, feature);
+		}
+		parameters.put(FivePxApiConstants.PAGE, String.valueOf(page));
+		parameters.put(FivePxApiConstants.SIZE, FivePxApiConstants.DEFAULT_PHOTO_SIZE);
+		parameters.put(FivePxApiConstants.PER_PAGE, FivePxApiConstants.PER_PAGE_VALUE);
+
+		String photoEndpoint = getBaseUrl() + FivePxApiConstants.photoEndpoint;
+
+		return buildFinalUrl(photoEndpoint, parameters);
+
 	}
 
 	private Map<String, String> getBaseParameters(){
 		Map<String, String> parameters = new HashMap<String, String>();
 		parameters.put(FivePxApiConstants.CONSUMER_KEY, FivePxApiConstants.appConsumerKey);
 		return parameters;
+	}
+
+	private String buildFinalUrl(String endpoint, Map<String, String> parameters) {
+		return endpoint + FivePxApiConstants.QUERY_URL_SEPARATOR + getParametersAsQueryString(parameters);
 	}
 
 	private String getParametersAsQueryString(Map<String, String> stringStringMap){

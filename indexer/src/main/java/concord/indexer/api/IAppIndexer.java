@@ -9,4 +9,9 @@ public interface IAppIndexer {
 	 * Do a full indexation on targetUser
 	 */
 	void indexUser();
+
+	/**
+	 * Do a full indexation on photos
+	 */
+	void indexPhotos();
 }

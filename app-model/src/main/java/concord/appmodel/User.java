@@ -2,6 +2,7 @@ package concord.appmodel;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document
 public class User {
-
+	@Id
 	private String id;
 	private Long userId;
 	private String username;

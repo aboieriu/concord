@@ -15,7 +15,7 @@ public class Runnable {
 
 		IAppIndexer indexer = context.getBean(IAppIndexer.class);
 
-		indexer.indexUser();
+		indexer.indexPhotos();
 
 	}
 }

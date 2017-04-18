@@ -2,8 +2,6 @@ rootProject.name = 'concord'
 include 'indexer'
 include 'app-dao'
 include 'fivepxapi'
-
 include 'app-commons'
-
 include 'app-model'
 

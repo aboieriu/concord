@@ -1,19 +1,25 @@
 package concord.appmodel;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 /**
  * Created by aboieriu on 4/18/17.
  */
 @Document
 public class Photo {
-	private Long photoId;
+	@Id
+	private String photoId;
 	private Long userId;
 	private String name;
 	private String description;
 	private String camera;
 	private String lens;
-	private String focal_length;
+	private String focalLength;
 	private String iso;
 	private String shutterSpeed;
 	private String aperture;
@@ -23,17 +29,34 @@ public class Photo {
 	private Long votesCount;
 	private Long favoritesCount;
 	private Long commentsCount;
+	private List<ImageItem> images;
 
-	public Photo(Long photoId, Long userId, String name, String description, String camera, String lens,
-					String focal_length, String iso, String shutterSpeed, String aperture, Long timesViewed,
-					Long rating, Long category, Long votesCount, Long favoritesCount, Long commentsCount) {
+	@JsonCreator
+	public Photo(
+					@JsonProperty("id") String photoId,
+					@JsonProperty("user_id") Long userId,
+					@JsonProperty("name") String name,
+					@JsonProperty("description") String description,
+					@JsonProperty("camera") String camera,
+					@JsonProperty("lens") String lens,
+					@JsonProperty("focal_length") String focalLength,
+					@JsonProperty("iso") String iso,
+					@JsonProperty("shutter_speed") String shutterSpeed,
+					@JsonProperty("aperture") String aperture,
+					@JsonProperty("times_viewed") Long timesViewed,
+					@JsonProperty("rating") Long rating,
+					@JsonProperty("category") Long category,
+					@JsonProperty("votes_count") Long votesCount,
+					@JsonProperty("favorites_count") Long favoritesCount,
+					@JsonProperty("comments_count") Long commentsCount,
+					@JsonProperty("images") List<ImageItem> images) {
 		this.photoId = photoId;
 		this.userId = userId;
 		this.name = name;
 		this.description = description;
 		this.camera = camera;
 		this.lens = lens;
-		this.focal_length = focal_length;
+		this.focalLength = focalLength;
 		this.iso = iso;
 		this.shutterSpeed = shutterSpeed;
 		this.aperture = aperture;
@@ -43,13 +66,14 @@ public class Photo {
 		this.votesCount = votesCount;
 		this.favoritesCount = favoritesCount;
 		this.commentsCount = commentsCount;
+		this.images = images;
 	}
 
-	public Long getPhotoId() {
+	public String getPhotoId() {
 		return photoId;
 	}
 
-	public void setPhotoId(Long photoId) {
+	public void setPhotoId(String photoId) {
 		this.photoId = photoId;
 	}
 
@@ -93,12 +117,12 @@ public class Photo {
 		this.lens = lens;
 	}
 
-	public String getFocal_length() {
-		return focal_length;
+	public String getFocalLength() {
+		return focalLength;
 	}
 
-	public void setFocal_length(String focal_length) {
-		this.focal_length = focal_length;
+	public void setFocalLength(String focalLength) {
+		this.focalLength = focalLength;
 	}
 
 	public String getIso() {
@@ -173,6 +197,14 @@ public class Photo {
 		this.commentsCount = commentsCount;
 	}
 
+	public List<ImageItem> getImages() {
+		return images;
+	}
+
+	public void setImages(List<ImageItem> images) {
+		this.images = images;
+	}
+
 	@Override public String toString() {
 		return "Photo{" +
 						"photoId=" + photoId +
@@ -181,7 +213,7 @@ public class Photo {
 						", description='" + description + '\'' +
 						", camera='" + camera + '\'' +
 						", lens='" + lens + '\'' +
-						", focal_length='" + focal_length + '\'' +
+						", focalLength='" + focalLength + '\'' +
 						", iso='" + iso + '\'' +
 						", shutterSpeed='" + shutterSpeed + '\'' +
 						", aperture='" + aperture + '\'' +
