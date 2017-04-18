@@ -5,3 +5,7 @@ include 'fivepxapi'
 include 'app-commons'
 include 'app-model'
 
+include 'classifier'
+
+include 'scheduler'
+

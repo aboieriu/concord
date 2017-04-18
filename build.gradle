@@ -1,42 +1,18 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        mavenLocal()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
-    }
-}
-
 apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'spring-boot'
 
-jar {
-    baseName = 'concord'
-    version =  '0.0.1'
-}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0'
 
 repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 dependencies {
-    // tag::jetty[]
-    compile("org.springframework.boot:spring-boot-starter-web") {
-        exclude module: "spring-boot-starter-tomcat"
-    }
-    compile("org.springframework.boot:spring-boot-starter-jetty")
-    // end::jetty[]
-    // tag::actuator[]
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-
-    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
-    compile files('lib/signpost-commonshttp4-1.2.1.1.jar', 'lib/signpost-core-1.2.1.1.jar')
-    // end::actuator[]
-    testCompile("junit:junit")
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile project(':fivepxapi')
+    compile project(':app-commons')
+    compile project(':app-dao')
+    compile project(':app-model')
+    compile project(':classifier')
 }

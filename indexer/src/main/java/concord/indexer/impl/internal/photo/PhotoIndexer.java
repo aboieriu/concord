@@ -36,7 +36,7 @@ public class PhotoIndexer {
 	}
 
 	public PhotoIndexBatch indexPhotos(PhotoIndexRequest photoIndexRequest) {
-		PhotoIndexBatch photoIndexBatch = new PhotoIndexBatch(new ArrayList<Photo>(), new Date(), Boolean.FALSE);
+		PhotoIndexBatch photoIndexBatch = new PhotoIndexBatch(new ArrayList<>(), new Date(), Boolean.FALSE);
 
 		Optional<PhotoResponse> photoResponseOptional = fivepx.getPhotos(photoIndexRequest.getCategory().name(), photoIndexRequest.getFeature().name(), photoIndexRequest.getPage());
 

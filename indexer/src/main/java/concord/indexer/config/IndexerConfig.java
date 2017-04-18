@@ -35,6 +35,7 @@ public class IndexerConfig {
 		return new AppIndexerImpl(fivepx, userRepository, getPhotoIndexer());
 	}
 
+	@Bean
 	public PhotoIndexer getPhotoIndexer(){
 		return new PhotoIndexer(fivepx, photoIndexBatchRepository, photoRepository);
 	}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <import resource="app-init.xml" />
+
+    <bean id="indexJobTask" class="concord.scheduler.job.IndexJob"></bean>
+
+    <bean id="indexJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="indexJobTask" />
+        <property name="targetMethod" value="executeInternal" />
+    </bean>
+
+    <bean id="indexJobTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+
+        <property name="jobDetail" ref="indexJob" />
+        <property name="repeatInterval" value="18000000" />
+        <property name="startDelay" value="1000" />
+
+    </bean>
+
+    <bean id="classificationJobTask" class="concord.scheduler.job.ClassificationJob"></bean>
+
+    <bean id="classificationJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="classificationJobTask" />
+        <property name="targetMethod" value="executeInternal" />
+    </bean>
+
+    <bean id="classificationJobTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+
+        <property name="jobDetail" ref="classificationJob" />
+        <property name="repeatInterval" value="5000" />
+        <property name="startDelay" value="1000" />
+
+    </bean>
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="jobDetails">
+            <list>
+                <ref bean="classificationJob" />
+            </list>
+        </property>
+
+        <property name="triggers">
+            <list>
+                <ref bean="classificationJobTrigger" />
+            </list>
+        </property>
+    </bean>
+</beans>
