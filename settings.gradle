@@ -1,4 +1,9 @@
 rootProject.name = 'concord'
+include 'indexer'
+include 'app-dao'
+include 'fivepxapi'
 
-include '500px'
+include 'app-commons'
+
+include 'app-model'
 
