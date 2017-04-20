@@ -2,9 +2,8 @@ package concord.classifier.impl;
 
 import com.google.common.base.Preconditions;
 import concord.appdao.repository.IPhotoIndexBatchRepository;
-import concord.appmodel.Photo;
 import concord.appmodel.PhotoIndexBatch;
-import concord.classifier.JmsManager;
+import concord.commons.JmsManager;
 import concord.classifier.api.IPhotoClassifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

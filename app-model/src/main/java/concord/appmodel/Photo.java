@@ -30,6 +30,9 @@ public class Photo {
 	private Long favoritesCount;
 	private Long commentsCount;
 	private List<ImageItem> images;
+	private String localFilePath;
+	private Boolean humanRated = Boolean.FALSE;
+	private Boolean aiRated = Boolean.FALSE;
 
 	@JsonCreator
 	public Photo(
@@ -49,7 +52,10 @@ public class Photo {
 					@JsonProperty("votes_count") Long votesCount,
 					@JsonProperty("favorites_count") Long favoritesCount,
 					@JsonProperty("comments_count") Long commentsCount,
-					@JsonProperty("images") List<ImageItem> images) {
+					@JsonProperty("images") List<ImageItem> images,
+					@JsonProperty("humanRated") Boolean humanRated,
+					@JsonProperty("aiRated") Boolean aiRated,
+					@JsonProperty("localFilePath") String localFilePath) {
 		this.photoId = photoId;
 		this.userId = userId;
 		this.name = name;
@@ -67,6 +73,17 @@ public class Photo {
 		this.favoritesCount = favoritesCount;
 		this.commentsCount = commentsCount;
 		this.images = images;
+		this.localFilePath = localFilePath;
+		this.humanRated = humanRated;
+		this.aiRated = aiRated;
+	}
+
+	public String getLocalFilePath() {
+		return localFilePath;
+	}
+
+	public void setLocalFilePath(String localFilePath) {
+		this.localFilePath = localFilePath;
 	}
 
 	public String getPhotoId() {
@@ -205,9 +222,25 @@ public class Photo {
 		this.images = images;
 	}
 
+	public Boolean getHumanRated() {
+		return humanRated;
+	}
+
+	public void setHumanRated(Boolean humanRated) {
+		this.humanRated = humanRated;
+	}
+
+	public Boolean getAiRated() {
+		return aiRated;
+	}
+
+	public void setAiRated(Boolean aiRated) {
+		this.aiRated = aiRated;
+	}
+
 	@Override public String toString() {
 		return "Photo{" +
-						"photoId=" + photoId +
+						"photoId='" + photoId + '\'' +
 						", userId=" + userId +
 						", name='" + name + '\'' +
 						", description='" + description + '\'' +
@@ -223,6 +256,10 @@ public class Photo {
 						", votesCount=" + votesCount +
 						", favoritesCount=" + favoritesCount +
 						", commentsCount=" + commentsCount +
+						", images=" + images +
+						", localFilePath='" + localFilePath + '\'' +
+						", humanRated=" + humanRated +
+						", aiRated=" + aiRated +
 						'}';
 	}
 }

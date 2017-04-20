@@ -19,6 +19,19 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.0.pr2'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0.pr2'
+
+    // https://mvnrepository.com/artifact/org.apache.camel/camel-core
+    compile group: 'org.apache.camel', name: 'camel-core', version: '2.18.3'
+
+    // https://mvnrepository.com/artifact/org.apache.camel/camel-spring
+    compile group: 'org.apache.camel', name: 'camel-spring', version: '2.18.3'
+
+    // https://mvnrepository.com/artifact/org.apache.camel/camel-jms
+    compile group: 'org.apache.camel', name: 'camel-jms', version: '2.18.3'
+
+    // https://mvnrepository.com/artifact/org.apache.activemq/activemq-camel
+    compile group: 'org.apache.activemq', name: 'activemq-camel', version: '5.14.4'
+
     // spring
     compile 'org.springframework:spring-core:4.3.7.RELEASE'
     compile 'org.springframework:spring-context:4.3.7.RELEASE'

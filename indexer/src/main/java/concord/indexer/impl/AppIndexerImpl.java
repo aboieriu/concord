@@ -7,7 +7,7 @@ import concord.appmodel.User;
 import concord.fivepxapi.api.IFivepx;
 import concord.fivepxapi.api.response.UserResponse;
 import concord.fivepxapi.constant.FivePxApiConstants;
-import concord.fivepxapi.constant.PhotoCategories;
+import concord.appmodel.domain.PhotoCategories;
 import concord.fivepxapi.constant.PhotoFeature;
 import concord.indexer.api.IAppIndexer;
 import concord.indexer.impl.internal.photo.PhotoIndexer;

@@ -1,6 +1,6 @@
 package concord.indexer.impl.internal.photo.domain;
 
-import concord.fivepxapi.constant.PhotoCategories;
+import concord.appmodel.domain.PhotoCategories;
 import concord.fivepxapi.constant.PhotoFeature;
 
 /**

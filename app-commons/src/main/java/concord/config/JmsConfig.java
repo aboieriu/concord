@@ -1,6 +1,6 @@
-package concord.classifier.config;
+package concord.config;
 
-import concord.classifier.JmsManager;
+import concord.commons.JmsManager;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +14,7 @@ import org.springframework.jms.support.converter.MappingJackson2MessageConverter
 @Configuration
 @EnableJms
 public class JmsConfig {
+
 	private static final String DEFAULT_BROKER_URL = "tcp://localhost:61616";
 
 	private static final String ORDER_QUEUE = "concordPhotoInput";

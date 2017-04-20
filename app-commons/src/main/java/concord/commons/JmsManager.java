@@ -1,4 +1,4 @@
-package concord.classifier;
+package concord.commons;
 
 import com.google.common.base.Preconditions;
 import org.springframework.jms.core.JmsTemplate;

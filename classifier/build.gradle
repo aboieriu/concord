@@ -11,19 +11,6 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
-    // https://mvnrepository.com/artifact/org.apache.camel/camel-core
-    compile group: 'org.apache.camel', name: 'camel-core', version: '2.18.3'
-
-    // https://mvnrepository.com/artifact/org.apache.camel/camel-spring
-    compile group: 'org.apache.camel', name: 'camel-spring', version: '2.18.3'
-
-    // https://mvnrepository.com/artifact/org.apache.camel/camel-jms
-    compile group: 'org.apache.camel', name: 'camel-jms', version: '2.18.3'
-
-    // https://mvnrepository.com/artifact/org.apache.activemq/activemq-camel
-    compile group: 'org.apache.activemq', name: 'activemq-camel', version: '5.14.4'
-
-
     compile project(':app-commons')
     compile project(':app-dao')
     compile project(':app-model')

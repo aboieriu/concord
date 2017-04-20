@@ -9,3 +9,5 @@ include 'classifier'
 
 include 'scheduler'
 
+include 'rest-service'
+
