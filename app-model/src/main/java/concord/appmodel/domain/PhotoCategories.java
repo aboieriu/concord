@@ -5,7 +5,15 @@ package concord.appmodel.domain;
  */
 public enum PhotoCategories {
 
-	ANIMALS(11);
+	ANIMALS(11),
+	CITY_AND_ARCHITECTURE(9),
+	LANDSCAPES(8),
+	MACRO(12),
+	NATURE(18),
+	STREET(21),
+	STILL_LIFE(6),
+	BLACK_AND_WHITE(5)
+	;
 
 	private int code;
 

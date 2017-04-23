@@ -1,0 +1,15 @@
+<div class="app-footer wrapper b-t bg-light">
+    Concord ({{app.version}}) - &copy; 2016 {{ 'footer.rights-reserved' | translate}}
+    <div class="dropdown hidden-sm select-language" dropdown>
+        <a href class="dropdown-toggle" dropdown-toggle>
+            {{selectLang}} &nbsp;<i class="fa fa-caret-up" aria-hidden="true"></i>
+        </a>
+        <!-- dropdown -->
+        <ul class="dropdown-menu lang-submenu">
+            <li ng-repeat="(langKey, label) in langs">
+                <a ng-click="setLang(langKey, $event)" href>{{label}}</a>
+            </li>
+        </ul>
+        <!-- / dropdown -->
+    </div>
+</div>

@@ -8,10 +8,10 @@ import concord.fivepxapi.api.IFivepx;
 import concord.fivepxapi.api.response.UserResponse;
 import concord.fivepxapi.constant.FivePxApiConstants;
 import concord.appmodel.domain.PhotoCategories;
-import concord.fivepxapi.constant.PhotoFeature;
+import concord.appmodel.domain.PhotoFeature;
 import concord.indexer.api.IAppIndexer;
 import concord.indexer.impl.internal.photo.PhotoIndexer;
-import concord.indexer.impl.internal.photo.domain.PhotoIndexRequest;
+import concord.appmodel.domain.PhotoIndexRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

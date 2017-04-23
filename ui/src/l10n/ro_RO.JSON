@@ -1,0 +1,106 @@
+{
+  "aside": {
+    "user": {
+      "options":{
+        "SETTINGS":"Setari"
+        , "PROFILE":"Profil"
+        , "HELP":"Ajutor"
+        , "LOGOUT":"Iesire"
+      }
+    }
+    , "nav": {
+      "components": {
+        "HOME":"Acasa",
+        "GUEST_LIST": "Lista invitati",
+        "BUDGET":"Buget",
+        "WEDDING_WEBSITE": "Pagina nuntii",
+        "INVITATIONS": "Invitatii",
+        "THINGS_TO_DO": "Lucruri de facut",
+        "PRIORITIES": "Prioritati",
+        "CALENDAR": "Calendar",
+        "SKETCHBOOK": "Caiet de notite",
+        "FAVORITES": "Favorite"
+      }
+    }
+  }
+  , "notifications": {
+    "title":"Notificari",
+    "NB_OF_NOTIFICATIONS_VAL":"Ai {{value}} notificari",
+    "SEE_ALL":"Vezi toate notificarile"
+  },
+  "login": {
+    "call-to-action": {
+      "heading1":"Your space"
+    , "heading2":"to be social."
+    , "description1":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis, sem sit amet viverra lobortis, "
+    , "description2":"dui metus placerat augue, vel aliquet quam felis non lacus. Aenean metus mi, vehicula sit amet nibh eget"
+    , "button1": {
+        "label":"Afla mai multe"
+      }
+    , "button2": {
+        "label":"Vezi cum te putem ajuta"
+      }
+    },
+    "login-form":{
+      "description":"To sign in, fill in your details below"
+    , "create-account-description":"Do not have an account?"
+    }
+  , "quick-login": {
+      "different-account":"Sign in with a different account"
+    }
+  },
+  "signup": {
+    "head":{
+      "call-to-action": {
+        "left-side1":"A wedding is not"
+      ,"left-side2":"just a party ..."
+      , "right-side1":"It's the beginning"
+      , "right-side2":"of an adventure"
+      }
+    },
+    "description":"To signup, please fill in the details below"
+  , "go-to-login-description":"Daca deja ai cont, te poti "
+  , "login-here-label":"autentifica aici"
+  , "form": {
+      "account-created":"Awesome! Your account has been created. Use the form below to get started"
+    }
+  },
+  "common": {
+    "form":{
+      "labels": {
+        "email":"Email"
+      , "password":"Parola"
+      , "login":"Log in"
+      , "forgot-password":"Forgot password?"
+      , "create-account":"Create an account"
+      , "first-name":"Nume"
+      , "last-name":"Prenume"
+      , "agree-with-terms":"I agree with the terms and conditions"
+      , "signup":"Sign up"
+      }
+    }
+  },
+  "error":{
+    "default":"Something went wrong. Please try again"
+  , "authentication.error.bad_credentials":"Email and password provided did not match"
+  , "authentication.error.bad_credentials":"Email and password provided did not match"
+  , "authentication.error.account_locked":"Unable to login because your account is locked"
+  , "authentication.error.account_expired":"Unable to login because your account is disabled"
+  , "authentication.error.account_disabled":"Unable to login because your account is disabled"
+  , "authentication.required":"Full authentication is required to access this resource"
+  ,  "authentication.error.internal_error":"Authentication service is unavailable for the moment. Please try again in a few moments"
+  ,  "core.error.method.not_supported":"The action you tried to perform is not supported for this resource"
+  ,  "entity.not_found":"One of the entities involved in your action does not exist"
+  ,  "core.unknown.error":"Something crashed while processing your request. The exception was logged and will be investigated immediately"
+  ,  "login.error.passwordRequired":"Please fill in the password field"
+  ,  "login.error.passwordInvalid":"Invalid password"
+  ,  "login.error.emailRequired":"Please fill in the email field"
+  ,  "login.error.emailInvalid":" Invalid email"
+  ,  "entity.user.not_found":"Requested user entity not found"
+  ,  "entity.user.duplicated":"There is a user already registered with this email address"
+  ,  "user.error.passwordInvalid":"Invalid password"
+  },
+  "footer":{
+    "rights-reserved":"Toate drepturile rezervate"
+  }
+}

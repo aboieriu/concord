@@ -1,0 +1,125 @@
+<!-- navbar -->
+<div data-ng-include=" 'js/app/common/template/header.html' " class="app-header navbar">
+</div>
+<!-- / navbar -->
+
+<!-- menu -->
+<div data-ng-include=" 'js/app/common/template/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">
+</div>
+<!-- / menu -->
+
+
+<!-- content -->
+<div class="app-content">
+    <div class="col-md-12" ng-controller="ClassificationModelController">
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">Classification model</h1>
+                    <small class="text-muted">{{model.id}}</small>
+                </div>
+                <div class="col-sm-6 text-right hidden-xs">
+                    <div class="inline m-r text-left">
+                        <div class="m-b-xs">{{model.dataCount}} <span class="text-muted"> items</span></div>
+                    </div>
+                    <div class="inline text-left">
+                        <div class="label label-danger" ng-show="!model.trained">Untrained</div>
+                        <div class="label label-success" ng-show="model.trained">Trained</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel wrapper">
+            <div class="row">
+                <div class="col-md-3 b-r b-light no-border-xs">
+                    <h4 class="font-thin m-t-none m-b-md text-muted" style="text-align:center">Model data summary</h4>
+                    <div class="m-b">
+                        <div class="m-b">
+                            <span class="label text-base bg-primary pos-rlt m-r"><i class="arrow right arrow-primary"></i> Stage 1</span>
+                            <a href="">{{summary.STAGE1}}</a>
+                        </div>
+                        <div class="m-b">
+                            <span class="label text-base bg-primary pos-rlt m-r"><i class="arrow right arrow-primary"></i> Stage 2</span>
+                            <a href="">{{summary.STAGE2}}</a>
+                        </div>
+                        <div class="m-b">
+                            <span class="label text-base bg-primary pos-rlt m-r"><i class="arrow right arrow-primary"></i> Stage 3</span>
+                            <a href="">{{summary.STAGE3}}</a>
+                        </div>
+                        <div class="m-b">
+                            <span class="label text-base bg-primary pos-rlt m-r"><i class="arrow right arrow-primary"></i> Stage 4</span>
+                            <a href="">{{summary.STAGE4}}</a>
+                        </div>
+
+                        <div class="m-b">
+                            <span class="label text-base bg-primary pos-rlt m-r"><i class="arrow right arrow-primary"></i> Stage 5</span>
+                            <a href="">{{summary.STAGE5}}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 b-r b-light no-border-xs">
+                    <div class="row row-sm">
+                        <h4 class="font-thin m-t-none m-b-md text-muted" style="text-align:center">Training parameters</h4>
+                        <div class="text-center">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Learning steps</label>
+                                <div class="col-sm-10" ng-model="trainRequest.steps">
+                                    <input class="form-control m-b" type="text" value="1000">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Algorithm</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control m-b" type="text" readonly value="inception" ng-model="trainRequest.algorithm">
+                                </div>
+                                <button class="btn btn-success" ng-show="model.trainingStatus == 'WAITING'" ng-click="trainModel(model.id, trainRequest)">Train model</button>
+                                <button class="btn btn-success" ng-show="model.trainingStatus == 'IN_PROGRESS'  || model.trainingStatus == 'IN_TRAINING'" disabled>Model is training...</button>
+                                <button class="btn btn-danger" ng-show="model.trainingStatus == 'TRAINED'" ng-click="retrainModel(model.id, trainRequest)">Retrain</button>
+                                <button class="btn btn-danger" ng-show="model.trainingStatus == 'FAILED'" ng-click="retrainModel(model.id, trainRequest)">Training failed... Retry ?</button>
+
+                                <hr />
+                                <div class="m-b" ng-show="model.trainingResults.startTime">
+                                    <span class="label text-base bg-primary pos-rlt m-r">Start date: {{model.trainingResults.startTime | date:"MM/dd/yyyy '-' h:mma"}}</span>
+                                    <span class="label text-base bg-primary pos-rlt m-r">End date: {{model.trainingResults.endTime | date:"MM/dd/yyyy '-' h:mma"}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 b-r b-light no-border-xs">
+                    <h4 class="font-thin m-t-none m-b-md text-muted" style="text-align:center">Training details</h4>
+
+                    <div class="m-b">
+                        <span class="label text-base bg-primary pos-rlt m-r">Steps</span>
+                        <a href="">{{model.trainingParameters.steps}}</a>
+                    </div>
+                    <div class="m-b">
+                        <span class="label text-base bg-primary pos-rlt m-r">Algorithm</span>
+                        <a href="">{{model.trainingParameters.algorithm}}</a>
+                    </div>
+                    <div class="m-b">
+                        <span class="label text-base bg-primary pos-rlt m-r">Expected accuracy</span>
+                        <a href="">{{model.trainingResults.testAccuracy}}%</a>
+                    </div>
+                    <div class="m-b">
+                        <span class="label text-base bg-primary pos-rlt m-r">Graph path</span>
+                        <a href="" ng-show="model.modelConfig.graphPath">Loaded</a>
+                    </div>
+                    <div class="m-b">
+                        <span class="label text-base bg-primary pos-rlt m-r">Labels path</span>
+                        <a href="" ng-show="model.modelConfig.labelsPath">Loaded</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /content -->
+<!-- footer -->
+<div footer-block></div>
+<!-- / footer -->
+</div>

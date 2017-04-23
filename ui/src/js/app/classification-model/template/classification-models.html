@@ -1,0 +1,65 @@
+<!-- navbar -->
+<div data-ng-include=" 'js/app/common/template/header.html' " class="app-header navbar">
+</div>
+<!-- / navbar -->
+
+<!-- menu -->
+<div data-ng-include=" 'js/app/common/template/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">
+</div>
+<!-- / menu -->
+
+
+<!-- content -->
+<div class="app-content">
+    <div class="col-md-12" ng-controller="ClassificationModelsController">
+        <div class="panel panel-default">
+            <div class="panel-heading font-bold">
+                Classification models
+                <hr />
+                Model type:
+                <select ng-model="modelRequest.category">
+                    <option value="ANIMALS"> Animals </option>
+                </select> <br />
+                Select index batches as source data
+                <select multiple="" class="form-control" ng-model="modelRequest.indexBatches">
+                    <option value="{{batch.id}}" ng-repeat="batch in indexBatches">{{batch.id}} # -- [{{batch.ratedPhotos}}/{{batch.totalPhotos}}] -- # {{batch.photoIndexRequest.category}} # {{batch.photoIndexRequest.feature}} # {{batch.photos.length}} # {{batch.date}}</option>
+                </select>
+                <br />
+                <button class="btn btn-success" style="width:100%" ng-click="submitModelRequest(modelRequest)">Create new model</button>
+                <br />
+                <br />
+                <hr />
+                Existing models
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped m-b-none">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Category</th>
+                        <th>Date created</th>
+                        <th>Date trained</th>
+                        <th>Data count</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="model in models">
+                        <td><a href="#/classification-model/{{model.id}}">{{model.id}}</a></td>
+                        <td>{{model.photoCategory}}</td>
+                        <td>{{model.date | date:"MM/dd/yyyy '-' h:mma"}}</td>
+                        <td>{{model.trainedDate | date:"MM/dd/yyyy '-' h:mma"}}</td>
+                        <td>{{model.dataCount}}</td>
+                        <td><button class="btn btn-danger" ng-click="deleteModel(model.id)">Delete</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /content -->
+<!-- footer -->
+<div footer-block></div>
+<!-- / footer -->
+</div>

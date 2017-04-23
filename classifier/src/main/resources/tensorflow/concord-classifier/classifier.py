@@ -2,15 +2,17 @@ import tensorflow as tf, sys
 
 # change this as you see fit
 image_path = sys.argv[1]
+labels = sys.argv[2]
+model = sys.argv[3]
 
 # Read in the image_data
 image_data = tf.gfile.FastGFile(image_path, 'rb').read()
 
 # Loads label file, strips off carriage return
-label_lines = [line.rstrip() for line in tf.gfile.GFile("/Users/aboieriu/Documents/concord-model/concord_labels.txt")]
+label_lines = [line.rstrip() for line in tf.gfile.GFile(labels)]
 
 # Unpersists graph from file
-with tf.gfile.FastGFile("/Users/aboieriu/Documents/concord-model/concord_graph.pb", 'rb') as f:
+with tf.gfile.FastGFile(model, 'rb') as f:
     graph_def = tf.GraphDef()
     graph_def.ParseFromString(f.read())
     _ = tf.import_graph_def(graph_def, name='')

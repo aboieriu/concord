@@ -1,0 +1,62 @@
+<!-- navbar -->
+<div data-ng-include=" 'js/app/common/template/header.html' " class="app-header navbar">
+</div>
+<!-- / navbar -->
+
+<!-- menu -->
+<div data-ng-include=" 'js/app/common/template/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">
+</div>
+<!-- / menu -->
+
+
+<!-- content -->
+<div class="app-content">
+    <div class="col-md-12" ng-controller="ReviewController">
+        <div class="panel panel-default" ng-show="data">
+            <div class="panel-heading">
+                {{data.id}}] # {{data.photoIndexRequest.category}} # {{data.photoIndexRequest.feature}}
+            </div>
+            <table class="table table-striped m-b-none">
+                <thead>
+                <tr>
+                    <th>Photo name</th>
+                    <th>Camera</th>
+                    <th>Lens</th>
+                    <th style="width:50px">Iso</th>
+                    <th style="width:50px">Aperture</th>
+                    <th style="width:50px">Focal length</th>
+                    <th>Shutter speed</th>
+                    <th>Rating</th>
+                    <th>Views</th>
+                    <th>Votes</th>
+                    <th>Favorites</th>
+                    <th>Comments</th>
+                    <th>Rate</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="photo in data.photos" ng-class="{'table-row-rated':photo.humanRated == true}">
+                    <td><div style="width:200px; overflow:hidden">{{photo.name}}</div></td>
+                    <td>{{photo.camera}}</td>
+                    <td>{{photo.lens}}</td>
+                    <td>{{photo.iso}}</td>
+                    <td>{{photo.aperture}}</td>
+                    <td>{{photo.focalLength}}</td>
+                    <td>{{photo.shutterSpeed}}</td>
+                    <td>{{photo.rating}}</td>
+                    <td>{{photo.timesViewed}}</td>
+                    <td>{{photo.votesCount}}</td>
+                    <td>{{photo.favoritesCount}}</td>
+                    <td>{{photo.commentsCount}}</td>
+                    <td><button class="btn btn-default" ng-click="open(photo)")>View</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /content -->
+<!-- footer -->
+<div footer-block></div>
+<!-- / footer -->
+</div>

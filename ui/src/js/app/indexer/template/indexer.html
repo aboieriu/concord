@@ -1,0 +1,75 @@
+  <!-- navbar -->
+  <div data-ng-include=" 'js/app/common/template/header.html' " class="app-header navbar">
+  </div>
+  <!-- / navbar -->
+
+  <!-- menu -->
+  <div data-ng-include=" 'js/app/common/template/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">
+  </div>
+  <!-- / menu -->
+
+
+  <!-- content -->
+  <div class="app-content">
+    <div class="col-md-12" ng-controller="IndexerController as ctrl">
+      <div class="panel panel-default">
+
+        <div class="panel panel-default">
+          <div class="panel-heading font-bold">
+            Request new indexation
+          </div>
+          <div class="panel-body">
+            <form class="form-inline ng-pristine ng-valid" role="form">
+              <div class="form-group">
+                <select name="page" class="form-control" ng-model="indexRequest.page">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select name="category" class="form-control" ng-model="indexRequest.category">
+                  <option value="{{category}}" ng-repeat="category in categories">{{category}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select name="feature" class="form-control" ng-model="indexRequest.feature">
+                  <option value="{{feature}}" ng-repeat="feature in features">{{feature}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-success" ng-disabled="indexRequestInProgress" ng-click="submitIndexRequest(indexRequest)">Start indexation</button>
+              </div>
+              </form>
+            </div>
+          </div>
+        <table class="table table-striped m-b-none">
+          <thead>
+          <tr>
+            <th>Category</th>
+            <th>Feature</th>
+            <th>Photo count</th>
+            <th>Date</th>
+            <th style="width:50px"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="batch in indexBatches">
+            <td>{{batch.photoIndexRequest.category}}</td>
+            <td>{{batch.photoIndexRequest.feature}}</td>
+            <td>{{batch.photos.length}}</td>
+            <td>{{batch.date}}</td>
+            <td><button class="btn btn-danger" ng-click="deleteBatch(batch.id)">Delete</button></td>
+          </tr>
+          </tbody>
+        </table>
+        </div>
+    </div>
+  </div>
+  <!-- /content -->
+  <!-- footer -->
+  <div footer-block></div>
+  <!-- / footer -->
+  </div>

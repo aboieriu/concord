@@ -1,10 +1,8 @@
 package concord.rest.controller;
 
-import concord.appmodel.Photo;
 import concord.rest.service.api.IPhotoService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,14 +19,18 @@ public class PhotoServiceController {
 	@Resource
 	private IPhotoService photoService;
 
-	@RequestMapping("/rate")
-	public List<Photo> getPhotosForRating() {
-		return photoService.getPhotosToRate();
-	}
-
 	@RequestMapping("/rate/{photoId}")
 	public void updatePhotoRating(@PathVariable("photoId") String photoId, @RequestParam("rating") String rating) {
 		photoService.ratePhoto(photoId, rating);
 	}
 
+	@RequestMapping("/categories")
+	public List<String> getPohotoCategories() {
+		return photoService.getPhotoCategories();
+	}
+
+	@RequestMapping("/features")
+	public List<String> getPohotoFeatures() {
+		return photoService.getPhotoFeatures();
+	}
 }

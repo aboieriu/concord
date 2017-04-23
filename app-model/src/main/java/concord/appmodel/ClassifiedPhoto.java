@@ -2,11 +2,14 @@ package concord.appmodel;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import concord.appmodel.domain.AiClassification;
 import concord.appmodel.domain.PhotoCategory;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,7 +23,7 @@ public class ClassifiedPhoto {
 	@DBRef
 	private Photo photo;
 	private PhotoCategory humanClassification;
-	Map<PhotoCategory, Long> aiClassification;
+	List<AiClassification> aiClassification = new ArrayList<>();
 
 	public ClassifiedPhoto(){}
 
@@ -28,11 +31,14 @@ public class ClassifiedPhoto {
 	public ClassifiedPhoto(
 					@JsonProperty("id") String id,
 					@JsonProperty("photo") Photo photo,
-					@JsonProperty("humanClassification") PhotoCategory humanClassification,
-					@JsonProperty("aiClassification")  Map<PhotoCategory, Long> aiClassification) {
+					@JsonProperty("humanClassification") PhotoCategory humanClassification) {
 		this.id = id;
 		this.photo = photo;
 		this.humanClassification = humanClassification;
+	}
+
+	public ClassifiedPhoto(Photo photo, List<AiClassification> aiClassification) {
+		this.photo = photo;
 		this.aiClassification = aiClassification;
 	}
 
@@ -66,11 +72,11 @@ public class ClassifiedPhoto {
 		this.humanClassification = humanClassification;
 	}
 
-	public Map<PhotoCategory, Long> getAiClassification() {
+	public List<AiClassification> getAiClassification() {
 		return aiClassification;
 	}
 
-	public void setAiClassification(Map<PhotoCategory, Long> aiClassification) {
+	public void setAiClassification(List<AiClassification> aiClassification) {
 		this.aiClassification = aiClassification;
 	}
 

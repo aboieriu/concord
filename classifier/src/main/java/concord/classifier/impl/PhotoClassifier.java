@@ -2,6 +2,7 @@ package concord.classifier.impl;
 
 import com.google.common.base.Preconditions;
 import concord.appdao.repository.IPhotoIndexBatchRepository;
+import concord.appmodel.ClassificationModel;
 import concord.appmodel.PhotoIndexBatch;
 import concord.commons.JmsManager;
 import concord.classifier.api.IPhotoClassifier;
@@ -14,11 +15,9 @@ import java.util.List;
  * Created by aboieriu on 4/18/17.
  */
 public class PhotoClassifier implements IPhotoClassifier {
-	private static final Logger LOGGER = LoggerFactory.getLogger(PhotoClassifier.class);
-
 	private IPhotoIndexBatchRepository photoIndexBatchRepository;
 
-	private final String JMS_QUEUE = "concordPhotoInput";
+	private final String JMS_QUEUE = "classifyPhoto";
 
 	private JmsManager jmsManager;
 
@@ -29,7 +28,7 @@ public class PhotoClassifier implements IPhotoClassifier {
 
 	@Override
 	public void classifyPhotos() {
-		List<PhotoIndexBatch> photoIndexBatches = photoIndexBatchRepository.findByProcessed(Boolean.FALSE);
+		/*List<PhotoIndexBatch> photoIndexBatches = photoIndexBatchRepository.findByProcessed(Boolean.FALSE);
 		if (photoIndexBatches != null && photoIndexBatches.size() > 0) {
 			for (PhotoIndexBatch photoIndexBatch : photoIndexBatches) {
 				photoIndexBatch.getPhotos().stream().forEach(photo -> jmsManager.sendJmsMessage(JMS_QUEUE, photo));
@@ -39,6 +38,9 @@ public class PhotoClassifier implements IPhotoClassifier {
 			}
 		} else {
 			LOGGER.info("PhotoIndexBatches is empty. No work to be done");
-		}
+		}*/
+
+		PhotoIndexBatch photoIndexBatch = photoIndexBatchRepository.findOne("58fbcf5dcb6220244956951f");
+		photoIndexBatch.getPhotos().stream().forEach(photo -> jmsManager.sendJmsMessage(JMS_QUEUE, photo));
 	}
 }

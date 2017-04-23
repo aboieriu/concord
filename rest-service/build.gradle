@@ -42,4 +42,5 @@ dependencies {
     compile project(':app-commons')
     compile project(':app-model')
     compile project(':app-dao')
+    compile project(':indexer')
 }

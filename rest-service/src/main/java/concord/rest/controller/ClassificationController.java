@@ -1,11 +1,14 @@
 package concord.rest.controller;
 
+import concord.appdao.repository.IPhotoRepository;
 import concord.appmodel.ClassificationModel;
 import concord.appmodel.Photo;
 import concord.appmodel.domain.PhotoCategories;
 import concord.appmodel.domain.PhotoCategory;
+import concord.appmodel.domain.TrainingParameters;
 import concord.rest.service.api.IClassificationService;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,9 +28,19 @@ public class ClassificationController {
 	@Resource
 	private IClassificationService classificationService;
 
+	@Resource
+	private IPhotoRepository photoRepository;
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ClassificationModel createNewClassificationModel(@RequestParam("photoCategory") PhotoCategories photoCategory) {
-		return classificationService.createNewClassificationModel(photoCategory);
+	public ClassificationModel createNewClassificationModel(
+					@RequestParam("photoCategory") PhotoCategories photoCategory,
+					@RequestBody List<String> indexBatchIds) {
+		return classificationService.createNewClassificationModel(photoCategory, indexBatchIds);
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public List<ClassificationModel> getModels(){
+		return classificationService.getModels();
 	}
 
 	@RequestMapping("/untrained-model")
@@ -35,12 +48,32 @@ public class ClassificationController {
 		return classificationService.findNextUntrainedModel();
 	}
 
-	@RequestMapping("/untrained-model/{modelId}/data")
+	@RequestMapping("/model/{modelId}")
+	public ClassificationModel getModel(@PathVariable("modelId") String modelId){
+		return classificationService.getClassificationModel(modelId);
+	}
+
+	@RequestMapping(value = "/model/{modelId}/train", method = RequestMethod.POST)
+		 public void trainModel(@PathVariable("modelId") String modelId, @RequestBody TrainingParameters trainingParameters){
+		classificationService.trainModel(modelId, trainingParameters);
+	}
+
+	@RequestMapping(value = "/model/{modelId}/retrain", method = RequestMethod.POST)
+	public void retrainModel(@PathVariable("modelId") String modelId, @RequestBody TrainingParameters trainingParameters){
+		classificationService.retrainModel(modelId, trainingParameters);
+	}
+
+	@RequestMapping(value = "/model/{modelId}", method = RequestMethod.DELETE)
+	public void deleteModel(@PathVariable("modelId") String modelId){
+		classificationService.deleteModel(modelId);
+	}
+
+	@RequestMapping("/model/{modelId}/data")
 	public List<Photo> getModelData(@PathVariable("modelId") String modelId){
 		return classificationService.getClassificationModelData(modelId);
 	}
 
-	@RequestMapping("/untrained-model/{modelId}/data/summary")
+	@RequestMapping("/model/{modelId}/data/summary")
 	public Map<PhotoCategory, Integer> getModelDataSummary(@PathVariable("modelId") String modelId){
 		return classificationService.getClassificationModelDataSummary(modelId);
 	}
@@ -48,5 +81,21 @@ public class ClassificationController {
 	@RequestMapping(value = "/untrained-model/{modelId}/refresh-data", method = RequestMethod.POST)
 	public void refreshData(@PathVariable("modelId") String modelId){
 		classificationService.refreshClassificationModelData(modelId);
+	}
+
+	@RequestMapping(value = "/classify", method = RequestMethod.POST)
+	public void classifyPhoto(@RequestParam("modelId") String modelId, @RequestParam("batchId") String batchId){
+		classificationService.classifyPhotos(modelId, batchId);
+	}
+
+	@RequestMapping(value = "/trash-local-data", method = RequestMethod.GET)
+	public void deleteLocalPhotoData(){
+		List<Photo> photos = photoRepository.findAll();
+
+		for (Photo photo : photos) {
+			photo.setLocalFilePath(null);
+			photo.setDownloadFailed(false);
+			photoRepository.save(photo);
+		}
 	}
 }

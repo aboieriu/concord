@@ -1,0 +1,48 @@
+  <!-- navbar -->
+  <div data-ng-include=" 'js/app/common/template/header.html' " class="app-header navbar">
+  </div>
+  <!-- / navbar -->
+
+  <!-- menu -->
+  <div data-ng-include=" 'js/app/common/template/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">
+  </div>
+  <!-- / menu -->
+
+
+  <!-- content -->
+  <div class="app-content">
+    <div class="col-md-12" ng-controller="ReviewController">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">
+          Review photos
+        </div>
+        <div class="panel-body">
+          <table class="table table-striped m-b-none">
+            <thead>
+            <tr>
+              <th>Id</th>
+              <th>Category</th>
+              <th>Feature</th>
+              <th>Date</th>
+              <th style="width:50px">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="batch in indexBatches">
+              <td><a href="#/reviewBatch/{{batch.id}}">{{batch.id}}</a></td>
+              <td>{{batch.photoIndexRequest.category}}</td>
+              <td>{{batch.photoIndexRequest.feature}}</td>
+              <td>{{batch.date}}</td>
+              <td>{{batch.ratedPhotos}}/{{batch.totalPhotos}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /content -->
+  <!-- footer -->
+  <div footer-block></div>
+  <!-- / footer -->
+  </div>

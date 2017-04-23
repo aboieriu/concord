@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="current-photo-to-rate-container">
+            <img ng-src="{{photo.images[0].url}}" style="width:100%" />
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="col-lg-2-4" style="text-align:center">
+            <button class="btn btn-default btn-addon" ng-click="ratePhoto(1)"><i class="fa fa-star" aria-hidden="true" ></i> 1 </button>
+        </div>
+        <div class="col-lg-2-4" style="text-align:center">
+            <button class="btn btn-default btn-addon" ng-click="ratePhoto(2)"><i class="fa fa-star" aria-hidden="true" ></i> 2 </button>
+        </div>
+        <div class="col-lg-2-4" style="text-align:center">
+            <button class="btn btn-default btn-addon" ng-click="ratePhoto(3)"><i class="fa fa-star" aria-hidden="true" ></i> 3 </button>
+        </div>
+        <div class="col-lg-2-4" style="text-align:center">
+            <button class="btn btn-default btn-addon" ng-click="ratePhoto(4)"><i class="fa fa-star" aria-hidden="true" ></i> 4 </button>
+        </div>
+        <div class="col-lg-2-4" style="text-align:center">
+            <button class="btn btn-default btn-addon" ng-click="ratePhoto(5)"><i class="fa fa-star" aria-hidden="true" ></i> 5 </button>
+        </div>
+    </div>
+</div>

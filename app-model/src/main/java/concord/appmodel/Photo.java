@@ -33,6 +33,7 @@ public class Photo {
 	private String localFilePath;
 	private Boolean humanRated = Boolean.FALSE;
 	private Boolean aiRated = Boolean.FALSE;
+	private Boolean downloadFailed = Boolean.FALSE;
 
 	@JsonCreator
 	public Photo(
@@ -236,6 +237,14 @@ public class Photo {
 
 	public void setAiRated(Boolean aiRated) {
 		this.aiRated = aiRated;
+	}
+
+	public Boolean getDownloadFailed() {
+		return downloadFailed != null && downloadFailed;
+	}
+
+	public void setDownloadFailed(Boolean downloadFailed) {
+		this.downloadFailed = downloadFailed;
 	}
 
 	@Override public String toString() {

@@ -1,0 +1,44 @@
+.btn {
+  overflow:hidden;
+  position:relative;
+}
+.btn.sync {
+  opacity:1;
+  .loading-anim {
+    right:7px;
+  }
+  .btn-label {
+    opacity:0.6;
+    margin-left:-25px;
+  }
+}
+
+.loading-anim{
+  position:absolute;
+  right:-50px;
+  top:13px;
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+  border-radius:100%;
+}
+.circle.white {
+  border: 5px solid fade(@middle, 50%);
+  border-top-color: @middle
+}
+.circle {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 5px solid fade(@primary-one, 50%);
+  border-top-color: @primary-one;
+  animation: spin 0.5s infinite linear;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

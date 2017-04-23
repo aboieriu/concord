@@ -1,2 +1,11 @@
-/node_modules/
-/bower_components/
+logs/*
+!.gitkeep
+tmp
+.idea/
+.DS_Store
+node_modules
+__MACOSX
+bower_components
+angular/
+libs/
+*.log

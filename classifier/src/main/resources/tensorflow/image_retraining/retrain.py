@@ -915,7 +915,7 @@ def main(_):
       evaluation_step,
       feed_dict={bottleneck_input: test_bottlenecks,
                  ground_truth_input: test_ground_truth})
-  print('Final test accuracy = %.1f%%' % (test_accuracy * 100))
+  print('<!--###t%.1f%%###-->' % (test_accuracy * 100))
 
   # Write out the trained graph and labels with the weights stored as constants.
   output_graph_def = graph_util.convert_variables_to_constants(

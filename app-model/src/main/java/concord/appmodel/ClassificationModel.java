@@ -8,12 +8,14 @@ import concord.appmodel.domain.ModelConfig;
 import concord.appmodel.domain.PhotoCategories;
 import concord.appmodel.domain.TrainingParameters;
 import concord.appmodel.domain.TrainingResults;
+import concord.appmodel.domain.TrainingStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by aboieriu on 4/19/17.
@@ -23,12 +25,15 @@ public class ClassificationModel {
 	@Id
 	private String id;
 	private Date date;
+	private Date trainedDate;
 	private TrainingParameters trainingParameters;
 	private TrainingResults trainingResults;
 	private ClassificationStatistics classificationStatistics;
 	private ModelConfig modelConfig;
 	private PhotoCategories photoCategory;
 	private boolean trained;
+	private TrainingStatus trainingStatus;
+
 	@DBRef
 	private List<ClassifiedPhoto> data;
 
@@ -119,6 +124,16 @@ public class ClassificationModel {
 		return data;
 	}
 
+	@JsonIgnore
+	public List<ClassifiedPhoto> getValidData(){
+		return getData().stream().filter(dataItem -> dataItem.getPhoto().getLocalFilePath() != null).collect(
+						Collectors.toList());
+	}
+
+	public int getDataCount(){
+		return data != null ? data.size() : 0;
+	}
+
 	public void setData(List<ClassifiedPhoto> data) {
 		this.data = data;
 	}
@@ -129,6 +144,22 @@ public class ClassificationModel {
 
 	public void setPhotoCategory(PhotoCategories photoCategory) {
 		this.photoCategory = photoCategory;
+	}
+
+	public Date getTrainedDate() {
+		return trainedDate;
+	}
+
+	public void setTrainedDate(Date trainedDate) {
+		this.trainedDate = trainedDate;
+	}
+
+	public TrainingStatus getTrainingStatus() {
+		return trainingStatus;
+	}
+
+	public void setTrainingStatus(TrainingStatus trainingStatus) {
+		this.trainingStatus = trainingStatus;
 	}
 
 	@Override public String toString() {
@@ -144,4 +175,6 @@ public class ClassificationModel {
 						", data=" + data +
 						'}';
 	}
+
+
 }

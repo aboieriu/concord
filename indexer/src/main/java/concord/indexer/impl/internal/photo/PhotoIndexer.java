@@ -7,7 +7,7 @@ import concord.appmodel.Photo;
 import concord.appmodel.PhotoIndexBatch;
 import concord.fivepxapi.api.IFivepx;
 import concord.fivepxapi.api.response.PhotoResponse;
-import concord.indexer.impl.internal.photo.domain.PhotoIndexRequest;
+import concord.appmodel.domain.PhotoIndexRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +37,7 @@ public class PhotoIndexer {
 
 	public PhotoIndexBatch indexPhotos(PhotoIndexRequest photoIndexRequest) {
 		PhotoIndexBatch photoIndexBatch = new PhotoIndexBatch(new ArrayList<>(), new Date(), Boolean.FALSE);
-
+		photoIndexBatch.setPhotoIndexRequest(photoIndexRequest);
 		Optional<PhotoResponse> photoResponseOptional = fivepx.getPhotos(photoIndexRequest.getCategory().name(), photoIndexRequest.getFeature().name(), photoIndexRequest.getPage());
 
 		if (photoResponseOptional.isPresent()) {

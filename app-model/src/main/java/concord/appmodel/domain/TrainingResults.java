@@ -1,18 +1,38 @@
 package concord.appmodel.domain;
 
+import java.util.Date;
+
 /**
  * Created by aboieriu on 4/19/17.
  */
 public class TrainingResults {
-	private long testAccuracy;
+	private Date startTime;
+	private Date endTime;
+	private double testAccuracy;
 
 	public TrainingResults(){}
 
-	public long getTestAccuracy() {
+	public double getTestAccuracy() {
 		return testAccuracy;
 	}
 
-	public void setTestAccuracy(long testAccuracy) {
+	public void setTestAccuracy(double testAccuracy) {
 		this.testAccuracy = testAccuracy;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 }

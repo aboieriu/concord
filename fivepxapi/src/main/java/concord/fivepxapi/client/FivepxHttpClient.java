@@ -16,13 +16,12 @@ public class FivepxHttpClient {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(FivepxHttpClient.class);
 
-	private HttpClient httpClient;
-
 	public FivepxHttpClient(){
-		httpClient = HttpClientBuilder.create().build();
+
 	}
 
 	public Optional<HttpResponse> executeRequest(HttpUriRequest request) {
+		HttpClient httpClient = HttpClientBuilder.create().build();
 		try {
 			return Optional.ofNullable(httpClient.execute(request));
 		} catch (Exception e) {
