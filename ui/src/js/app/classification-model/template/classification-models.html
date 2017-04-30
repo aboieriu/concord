@@ -14,20 +14,39 @@
     <div class="col-md-12" ng-controller="ClassificationModelsController">
         <div class="panel panel-default">
             <div class="panel-heading font-bold">
+                <div style="background-color:white;padding:10px;">
                 Classification models
                 <hr />
                 Model type:
-                <select ng-model="modelRequest.category">
-                    <option value="ANIMALS"> Animals </option>
+                <select ng-model="indexRequest.category">
+                    <option value="{{category}}" ng-repeat="category in categories">{{category}}</option>
                 </select> <br />
-                Select index batches as source data
-                <select multiple="" class="form-control" ng-model="modelRequest.indexBatches">
-                    <option value="{{batch.id}}" ng-repeat="batch in indexBatches">{{batch.id}} # -- [{{batch.ratedPhotos}}/{{batch.totalPhotos}}] -- # {{batch.photoIndexRequest.category}} # {{batch.photoIndexRequest.feature}} # {{batch.photos.length}} # {{batch.date}}</option>
-                </select>
-                <br />
-                <button class="btn btn-success" style="width:100%" ng-click="submitModelRequest(modelRequest)">Create new model</button>
-                <br />
-                <br />
+
+                    <table class="table table-striped m-b-none">
+                        <thead>
+                        <tr>
+                            <th style="width:50px">-</th>
+                            <th>Category</th>
+                            <th>Feature</th>
+                            <th>Photo stats</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="batch in indexBatches">
+                            <td><label class="i-checks m-b-none"><input type="checkbox" name="requestIndexBatches" value="{{batch.id}}"><i></i></label></td>
+                            <td>{{batch.photoIndexRequest.category}}</td>
+                            <td>{{batch.photoIndexRequest.feature}}</td>
+                            <td>{{batch.ratedPhotos}} / {{batch.totalPhotos}}</td>
+                            <td>{{batch.date | date:"MM/dd/yyyy '-' h:mma"}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <button class="btn btn-success" style="width:100%" ng-click="submitModelRequest(indexRequest)">Create new model</button>
+                    <br />
+                    <br />
+                </div>
                 <hr />
                 Existing models
             </div>

@@ -7,6 +7,7 @@ public class PhotoIndexRequest {
 	private int page;
 	private PhotoCategories category;
 	private PhotoFeature feature;
+	private PhotoIndexRequestSource source;
 
 	public PhotoIndexRequest(){}
 
@@ -38,6 +39,14 @@ public class PhotoIndexRequest {
 
 	public void setFeature(PhotoFeature feature) {
 		this.feature = feature;
+	}
+
+	public PhotoIndexRequestSource getSource() {
+		return source;
+	}
+
+	public void setSource(PhotoIndexRequestSource source) {
+		this.source = source;
 	}
 
 	@Override

@@ -9,7 +9,7 @@ app.controller('IndexerController', ['$scope', '$http', '$state', '$window', fun
     };
 
     var getData = function(){
-        $http.get(app.apiBaseUrl+ 'index').then(function(response){
+        $http.get(app.apiBaseUrl+ 'index?source=USER').then(function(response){
             $scope.indexBatches=prepareBatchData(response.data.content);
         });
 

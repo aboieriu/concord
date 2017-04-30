@@ -1,0 +1,48 @@
+  <!-- navbar -->
+  <div data-ng-include=" 'js/app/common/template/header.html' " class="app-header navbar">
+  </div>
+  <!-- / navbar -->
+
+  <!-- menu -->
+  <div data-ng-include=" 'js/app/common/template/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">
+  </div>
+  <!-- / menu -->
+
+
+  <!-- content -->
+  <div class="app-content">
+    <div class="col-md-12" ng-controller="IndexerController as ctrl">
+      <div class="panel panel-default">
+
+        <div class="panel panel-default">
+          <div class="panel-heading font-bold">
+            Auto indexed batches
+          </div>
+        <table class="table table-striped m-b-none">
+          <thead>
+          <tr>
+            <th>Category</th>
+            <th>Feature</th>
+            <th>Photo count</th>
+            <th>Date</th>
+            <th>Ai classified</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="batch in indexBatches">
+            <td>{{batch.photoIndexRequest.category}}</td>
+            <td>{{batch.photoIndexRequest.feature}}</td>
+            <td>{{batch.photos.length}}</td>
+            <td>{{batch.date}}</td>
+            <td>{{batch.processed}}</td>
+          </tr>
+          </tbody>
+        </table>
+        </div>
+    </div>
+  </div>
+  <!-- /content -->
+  <!-- footer -->
+  <div footer-block></div>
+  <!-- / footer -->
+  </div>

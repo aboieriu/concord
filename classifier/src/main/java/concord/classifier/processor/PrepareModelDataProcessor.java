@@ -2,6 +2,7 @@ package concord.classifier.processor;
 
 import concord.appdao.repository.IClassificationModelRepository;
 import concord.appmodel.ClassificationModel;
+import concord.appmodel.domain.TrainingResults;
 import concord.appmodel.domain.TrainingStatus;
 import concord.classifier.trainer.TensorflowTrainer;
 import org.apache.camel.Exchange;
@@ -44,6 +45,9 @@ public class PrepareModelDataProcessor {
 		ClassificationModel classificationModel = classificationModelRepository.findOne(modelId);
 
 		if (!classificationModel.isTrained() && TrainingStatus.WAITING.equals(classificationModel.getTrainingStatus())) {
+			if (classificationModel.getTrainingResults() == null) {
+				classificationModel.setTrainingResults(new TrainingResults());
+			}
 			classificationModel.getTrainingResults().setStartTime(new Date());
 			classificationModelRepository.save(classificationModel);
 
@@ -61,6 +65,7 @@ public class PrepareModelDataProcessor {
 		} else {
 			LOGGER.info("This model is either training or already trained. [SKIPPING] ");
 		}
+		classificationModelRepository.save(classificationModel);
 	}
 
 	private void updateModelStatus(ClassificationModel classificationModel, TrainingStatus trainingStatus) {

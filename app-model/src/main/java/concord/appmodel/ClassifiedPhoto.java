@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import concord.appmodel.domain.AiClassification;
 import concord.appmodel.domain.PhotoCategory;
+import concord.appmodel.domain.SocialEngagementStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +26,9 @@ public class ClassifiedPhoto {
 	private Photo photo;
 	private PhotoCategory humanClassification;
 	List<AiClassification> aiClassification = new ArrayList<>();
+	private SocialEngagementStatus engagementStatus;
+	private Date engagementDate;
+	private String socialEngagedUserId;
 
 	public ClassifiedPhoto(){}
 
@@ -78,6 +83,30 @@ public class ClassifiedPhoto {
 
 	public void setAiClassification(List<AiClassification> aiClassification) {
 		this.aiClassification = aiClassification;
+	}
+
+	public SocialEngagementStatus getEngagementStatus() {
+		return engagementStatus;
+	}
+
+	public void setEngagementStatus(SocialEngagementStatus engagementStatus) {
+		this.engagementStatus = engagementStatus;
+	}
+
+	public Date getEngagementDate() {
+		return engagementDate;
+	}
+
+	public void setEngagementDate(Date engagementDate) {
+		this.engagementDate = engagementDate;
+	}
+
+	public String getSocialEngagedUserId() {
+		return socialEngagedUserId;
+	}
+
+	public void setSocialEngagedUserId(String socialEngagedUserId) {
+		this.socialEngagedUserId = socialEngagedUserId;
 	}
 
 	@Override

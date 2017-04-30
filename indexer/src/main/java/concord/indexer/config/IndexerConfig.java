@@ -1,5 +1,6 @@
 package concord.indexer.config;
 
+import concord.appdao.repository.IClassificationModelRepository;
 import concord.appdao.repository.IPhotoIndexBatchRepository;
 import concord.appdao.repository.IPhotoRepository;
 import concord.appdao.repository.IUserRepository;
@@ -30,9 +31,12 @@ public class IndexerConfig {
 	@Resource
 	private IPhotoRepository photoRepository;
 
+	@Resource
+	private IClassificationModelRepository classificationModelRepository;
+
 	@Bean
 	public IAppIndexer getAppIndexer(){
-		return new AppIndexerImpl(fivepx, userRepository, getPhotoIndexer());
+		return new AppIndexerImpl(fivepx, userRepository, getPhotoIndexer(), classificationModelRepository);
 	}
 
 	@Bean

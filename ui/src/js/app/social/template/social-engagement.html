@@ -1,0 +1,61 @@
+<!-- navbar -->
+<div data-ng-include=" 'js/app/common/template/header.html' " class="app-header navbar">
+</div>
+<!-- / navbar -->
+
+<!-- menu -->
+<div data-ng-include=" 'js/app/common/template/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">
+</div>
+<!-- / menu -->
+
+
+<!-- content -->
+<div class="app-content">
+    <div class="col-md-12" ng-controller="SocialEngagementController">
+        <div class="panel wrapper col-md-12">
+            <h4 class="font-thin m-t-none m-b text-muted">Photo engagement status</h4>
+            <div class="panel-body" ng-show="graphData">
+                <div id="socialGraphData" ui-jq="plot" ui-refresh="refresh" ui-options="{{graphData}}" style="height: 240px; padding: 0px; position: relative;">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">
+                    Photo engagement
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped m-b-none">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Photo name</th>
+                            <th>Camera</th>
+                            <th>Lens</th>
+                            <th>Engagement date</th>
+                            <th>Engagement status</th>
+                            <th>Ai classification</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="classififedPhoto in classififedPhotos">
+                            <td><a href="https://500px.com/photo/{{classififedPhoto.photo.photoId}}/" target="_blank">{{classififedPhoto.photo.photoId}}</a></td>
+                            <td>{{classififedPhoto.photo.name}}</td>
+                            <td>{{classififedPhoto.photo.camera}}</td>
+                            <td>{{classififedPhoto.photo.lens}}</td>
+                            <td>{{classififedPhoto.engagementDate | date:"MM/dd/yyyy '-' h:mma"}}</td>
+                            <td>{{classififedPhoto.engagementStatus}}</td>
+                            <td>{{classififedPhoto.aiClassification[0].highestScore}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /content -->
+<!-- footer -->
+<div footer-block></div>
+<!-- / footer -->
+</div>

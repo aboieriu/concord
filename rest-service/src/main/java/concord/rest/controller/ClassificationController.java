@@ -1,12 +1,21 @@
 package concord.rest.controller;
 
+import concord.appdao.repository.IClassifiedPhotoRepository;
+import concord.appdao.repository.IPhotoIndexBatchRepository;
 import concord.appdao.repository.IPhotoRepository;
 import concord.appmodel.ClassificationModel;
+import concord.appmodel.ClassifiedPhoto;
 import concord.appmodel.Photo;
+import concord.appmodel.PhotoIndexBatch;
+import concord.appmodel.domain.PageableRequest;
 import concord.appmodel.domain.PhotoCategories;
 import concord.appmodel.domain.PhotoCategory;
+import concord.appmodel.domain.PhotoIndexRequestSource;
 import concord.appmodel.domain.TrainingParameters;
+import concord.commons.SocialEngagementRequest;
 import concord.rest.service.api.IClassificationService;
+import concord.rest.service.api.ISocialEngagementService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +41,13 @@ public class ClassificationController {
 
 	@Resource
 	private IPhotoRepository photoRepository;
+
+	@Resource
+	private IPhotoIndexBatchRepository photoIndexBatchRepository;
+
+	@Resource
+	private IClassifiedPhotoRepository classifiedPhotoRepository;
+
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ClassificationModel createNewClassificationModel(
@@ -97,5 +115,27 @@ public class ClassificationController {
 			photo.setDownloadFailed(false);
 			photoRepository.save(photo);
 		}
+	}
+
+	@RequestMapping(value = "/mass-update", method = RequestMethod.GET)
+	public void massUpdate(){
+		//List<PhotoIndexBatch> photoIndexBatches = photoIndexBatchRepository.findAll();
+		List<ClassifiedPhoto> classifiedPhotos = classifiedPhotoRepository.findAll();
+
+		for (ClassifiedPhoto classifiedPhoto : classifiedPhotos) {
+			if (classifiedPhoto.getEngagementDate() != null) {
+				classifiedPhoto.setSocialEngagedUserId("11735713");
+				classifiedPhotoRepository.save(classifiedPhoto);
+			}
+		}
+
+		/*for (PhotoIndexBatch photo : photoIndexBatches) {
+			if (photo.getPhotoIndexRequest().getSource().equals(PhotoIndexRequestSource.SYSTEM)) {
+				photo.setProcessed(true);
+				photoIndexBatchRepository.save(photo);
+			}
+		}*/
+
+
 	}
 }

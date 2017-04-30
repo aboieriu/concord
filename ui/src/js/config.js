@@ -13,6 +13,7 @@ function ($controllerProvider,   $compileProvider,   $filterProvider,   $provide
     app.constant   = $provide.constant;
     app.value      = $provide.value;
     app.baseKey = "";
+    //app.apiBaseUrl = 'http://dbrick.asuscomm.com:8080/';
     app.apiBaseUrl = 'http://localhost:8080/';
 }
 ])

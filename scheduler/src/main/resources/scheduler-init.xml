@@ -6,6 +6,7 @@
 
     <import resource="app-init.xml" />
 
+    <!-- INDEX JOB -->
     <bean id="indexJobTask" class="concord.scheduler.job.IndexJob"></bean>
 
     <bean id="indexJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -16,11 +17,12 @@
     <bean id="indexJobTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
 
         <property name="jobDetail" ref="indexJob" />
-        <property name="repeatInterval" value="18000000" />
+        <property name="repeatInterval" value="7200000" />
         <property name="startDelay" value="1000" />
 
     </bean>
 
+    <!-- Classification JOB -->
     <bean id="classificationJobTask" class="concord.scheduler.job.ClassificationJob"></bean>
 
     <bean id="classificationJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -31,21 +33,42 @@
     <bean id="classificationJobTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
 
         <property name="jobDetail" ref="classificationJob" />
-        <property name="repeatInterval" value="5000" />
-        <property name="startDelay" value="1000" />
+        <property name="repeatInterval" value="7200000" />
+        <property name="startDelay" value="30000" />
+
+    </bean>
+
+    <!-- SOCIAL ENGAGEMENT JOB -->
+    <bean id="socialEngagementJobTask" class="concord.scheduler.job.SocialEngagementJob"></bean>
+
+    <bean id="socialEngagementJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="socialEngagementJobTask" />
+        <property name="targetMethod" value="executeInternal" />
+    </bean>
+
+    <bean id="socialEngagementTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+
+        <property name="jobDetail" ref="socialEngagementJob" />
+        <property name="repeatInterval" value="3600000" />
+        <property name="startDelay" value="10000" />
 
     </bean>
 
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="jobDetails">
             <list>
-                <ref bean="classificationJob" />
+                <!--<ref bean="indexJob" />
+                <ref bean="classificationJob" />-->
+                <ref bean="socialEngagementJob" />
+
             </list>
         </property>
 
         <property name="triggers">
             <list>
-                <ref bean="classificationJobTrigger" />
+                <!--<ref bean="indexJobTrigger" />
+                <ref bean="classificationJobTrigger" />-->
+                <ref bean="socialEngagementTrigger" />
             </list>
         </property>
     </bean>

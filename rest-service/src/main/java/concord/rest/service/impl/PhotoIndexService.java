@@ -6,6 +6,7 @@ import concord.appmodel.Photo;
 import concord.appmodel.PhotoIndexBatch;
 import concord.appmodel.domain.PageableRequest;
 import concord.appmodel.domain.PhotoIndexRequest;
+import concord.appmodel.domain.PhotoIndexRequestSource;
 import concord.indexer.impl.internal.photo.PhotoIndexer;
 import concord.rest.domain.PhotoIndexBatchRating;
 import concord.rest.service.api.IPhotoIndexService;
@@ -29,8 +30,8 @@ public class PhotoIndexService implements IPhotoIndexService {
 	@Resource
 	private IPhotoIndexBatchRepository photoIndexBatchRepository;
 
-	public Page<PhotoIndexBatch> getPhotoIndexBatches(PageableRequest pageable) {
-		return photoIndexBatchRepository.findAll(pageable);
+	public Page<PhotoIndexBatch> getPhotoIndexBatches(PageableRequest pageable, PhotoIndexRequestSource source) {
+		return photoIndexBatchRepository.findAllBySource(source,pageable);
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class PhotoIndexService implements IPhotoIndexService {
 
 	@Override
 	public Page<PhotoIndexBatchRating> getPhotoIndexBatchesForRating(PageableRequest pageable) {
-		Page<PhotoIndexBatch> photoIndexBatches = getPhotoIndexBatches(pageable);
+		Page<PhotoIndexBatch> photoIndexBatches = getPhotoIndexBatches(pageable, PhotoIndexRequestSource.USER);
 
 		List<PhotoIndexBatchRating> resultItems = photoIndexBatches.getContent()
 						.stream().map(batch -> new PhotoIndexBatchRating(batch.getId(), batch.getPhotoIndexRequest(), batch.getDate(),

@@ -41,10 +41,12 @@ public class TensorflowTrainer {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TensorflowTrainer.class);
 
-	private static final String TRAIN_PYTHON_FILE = "tensorflow/image_retraining/retrain.py";
 
 	@Value("${model.training.storage}")
 	private String modelTrainingStorage;
+
+	@Value("${retrain.file.path}")
+	private String trainFilePath;
 
 	@Resource
 	private IClassificationModelRepository classificationModelRepository;
@@ -97,18 +99,23 @@ public class TensorflowTrainer {
 
 		String buildCommand = buildTrainCommand(basePathAbsolute, model.getTrainingParameters(), labelsPathAbsolute, graphPathAbsolute, dataPathAbsolute);
 
+		LOGGER.info("Excuting command: " + buildCommand);
 		// Execute train command
 		Process p = Runtime.getRuntime().exec(buildCommand);
 
 		BufferedReader output = getOutput(p);
+		BufferedReader errorOutput = getError(p);
 
 		StringBuilder outStringBuilder = new StringBuilder();
-
 		String line;
-
 		while ((line = output.readLine()) != null) {
 			LOGGER.info(line);
 			outStringBuilder.append(line);
+		}
+
+		LOGGER.info("Checking out error output of command");
+		while ((line = errorOutput.readLine()) != null) {
+			LOGGER.info(line);
 		}
 
 		model.getTrainingResults().setTestAccuracy(getTrainingResultsFromOutput(outStringBuilder.toString()));
@@ -142,7 +149,7 @@ public class TensorflowTrainer {
 
 	private String buildTrainCommand(String basePath, TrainingParameters parameters, String labelsPathAbsolute, String graphPathAbsolute, String dataPathAbsolute) {
 		return MessageFormat.format(PYTHON_TRAIN_COMMAND,
-						this.getClass().getClassLoader().getResource(TRAIN_PYTHON_FILE).getFile(),
+						trainFilePath,
 						basePath + "/bottlenecks",
 						String.valueOf(parameters.getSteps()),
 						"/Users/aboieriu/Documents/concord-model/inception",
@@ -153,11 +160,16 @@ public class TensorflowTrainer {
 
 	private void buildModelData(ClassificationModel model, Path dataPath) throws Exception{
 		for (ClassifiedPhoto classifiedPhoto : model.getValidData()) {
-			File input = new File(classifiedPhoto.getPhoto().getLocalFilePath());
-			File dest = new File(dataPath.toFile().getAbsolutePath() + "/" + classifiedPhoto.getHumanClassification());
+			try {
+				File input = new File(classifiedPhoto.getPhoto().getLocalFilePath());
+				File dest = new File(
+								dataPath.toFile().getAbsolutePath() + "/" + classifiedPhoto.getHumanClassification());
 
-			Files.createDirectories(dest.toPath());
-			FileUtils.copyFileToDirectory(input, dest);
+				Files.createDirectories(dest.toPath());
+				FileUtils.copyFileToDirectory(input, dest);
+			} catch (Exception e) {
+				LOGGER.info("Unable to move file from " + classifiedPhoto.getPhoto().getLocalFilePath() + " [skipping]");
+			}
 		}
 	}
 
