@@ -17,7 +17,7 @@ public class FivePxApiConstants {
 
 	//VALUES
 	public static final String DEFAULT_PHOTO_SIZE = "2048";
-	public static final String PER_PAGE_VALUE = "20";
+	public static final String PER_PAGE_VALUE = "100";
 
 	public static final String QUERY_PARAM_SEPARATOR = "&";
 	public static final String QUERY_KEY_VALUE_SEPARATOR = "=";

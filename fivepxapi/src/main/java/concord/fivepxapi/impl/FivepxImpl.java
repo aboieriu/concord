@@ -74,7 +74,7 @@ public class FivepxImpl implements IFivepx {
 		}
 		parameters.put(FivePxApiConstants.PAGE, String.valueOf(page));
 		parameters.put(FivePxApiConstants.SIZE, FivePxApiConstants.DEFAULT_PHOTO_SIZE);
-		//parameters.put(FivePxApiConstants.PER_PAGE, FivePxApiConstants.PER_PAGE_VALUE);
+		parameters.put(FivePxApiConstants.PER_PAGE, FivePxApiConstants.PER_PAGE_VALUE);
 
 		String photoEndpoint = getBaseUrl() + FivePxApiConstants.photoEndpoint;
 
